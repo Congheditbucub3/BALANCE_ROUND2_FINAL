@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Balance</title>
+<link rel="icon" type="image/png" href="assets/icons/balance-logo.png">
+<link rel="stylesheet" href="theme.css">
+<style>
+  body.dashboard-page { padding-bottom: 60px; background: var(--bg); }
+
+  .hero { padding: 38px 0 8px; }
+  .hero .eyebrow { margin-bottom: 8px; }
+  .hero h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 10px; }
+  .hero p { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
+  .motivation-quote { max-width: 760px; line-height: 1.65; }
+
+  .section-label {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 32px 0 14px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .daily-activity-bar {
+    display: grid;
+    grid-template-columns: minmax(150px, .7fr) minmax(180px, 1.35fr) minmax(250px, 1fr);
+    align-items: center;
+    gap: 18px;
+    margin: 0 0 14px;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .activity-kicker { color: #23D821; font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .activity-calories { margin-top: 4px; color: var(--text); font-family: var(--font-heading); font-size: clamp(1.55rem, 3vw, 2.05rem); font-weight: 800; line-height: 1; letter-spacing: -.04em; }
+  .activity-calories span { color: #23D821; font-size: .55em; letter-spacing: 0; }
+  .activity-estimate { margin: 5px 0 0; color: var(--text-faint); font-size: .68rem; line-height: 1.35; }
+  .activity-progress-copy { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; color: var(--text-muted); font-size: .72rem; font-weight: 700; }
+  .activity-progress .progress-fill { background: #23D821; }
+  .activity-counts { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 7px; }
+  .activity-count { padding: 7px 9px; color: var(--text-muted); background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-pill); font-size: .73rem; font-weight: 700; white-space: nowrap; }
+  .activity-count strong { color: var(--text); }
+
+  /* One large daily movement card, with the three remaining totals beside it. */
+  .progress-dashboard {
+    display: grid;
+    grid-template-columns: minmax(0, 1.75fr) minmax(230px, 0.8fr);
+    gap: 14px;
+  }
+  .steps-overview,
+  .metric-card,
+  .nav-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .steps-overview:hover,
+  .metric-card:hover,
+  .nav-card:hover {
+    border-color: var(--border);
+    box-shadow: 0 0 0 2px rgba(186, 204, 131, 0.22), 0 12px 32px rgba(0, 0, 0, 0.18);
+  }
+  .steps-overview { padding: 24px; min-height: 346px; }
+  .steps-overview:focus-within,
+  .metric-card:focus-within,
+  .nav-card:focus-visible {
+    outline: none;
+    border-color: var(--border);
+    box-shadow: 0 0 0 3px rgba(186, 204, 131, 0.25);
+  }
+  .steps-topline,
+  .metric-topline,
+  .steps-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .steps-label,
+  .metric-label {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+  }
+  .steps-goal { color: var(--text-faint); font-size: 0.78rem; font-weight: 600; }
+  .steps-label.health { color: #23D821; }
+  .steps-number {
+    color: #23D821;
+    font-family: var(--font-heading);
+    font-size: clamp(3.3rem, 8vw, 5.3rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+    margin: 15px 0 8px;
+  }
+  .steps-goal-progress { height: 7px; margin: 16px 0 8px; }
+  .steps-goal-progress .progress-fill { background: #23D821; }
+  .steps-chart-wrap { margin-top: 16px; min-height: 139px; }
+  .steps-chart { display: block; height: 150px; width: 100%; overflow: visible; }
+  .steps-chart .chart-grid { stroke: rgba(255, 255, 255, 0.08); stroke-width: 1; }
+  .steps-chart .chart-area { fill: url(#stepsChartFill); }
+  .steps-chart .chart-line { fill: none; stroke: #23D821; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .steps-chart .chart-dot { fill: #23D821; stroke: var(--surface); stroke-width: 3; }
+  .steps-chart text { fill: var(--text-faint); font: 600 11px var(--font-body); }
+  .steps-footer { margin-top: 2px; }
+  .step-change { color: #23D821; font-size: 0.86rem; font-weight: 800; }
+  .step-change.negative { color: var(--red); }
+  .step-change.neutral { color: var(--text-muted); }
+  .step-comparison { color: var(--text-faint); font-size: 0.8rem; }
+
+  .metrics-stack { display: grid; grid-template-rows: repeat(3, 1fr); gap: 14px; }
+  .metric-card { padding: 17px 18px; min-height: 106px; }
+  .metric-card:hover { transform: translateY(-2px); }
+  .metric-number {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-top: 12px;
+  }
+  .metric-number.credit { color: var(--gold); }
+  .metric-number.education { color: #1B50F1; }
+  .metric-label.credit { color: var(--gold); }
+  .metric-label.education { color: #1B50F1; }
+  .metric-sub { color: var(--text-faint); font-size: 0.72rem; margin-top: 5px; }
+  .icon-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+  .icon-badge img { width: 21px; height: 21px; object-fit: contain; }
+  .icon-badge.credit { background: var(--gold); }
+  .icon-badge.education { background: #1B50F1; }
+  .icon-badge.health { background: #23D821; }
+
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .nav-card {
+    padding: 22px;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+  }
+  .nav-card:hover { transform: translateY(-3px); }
+  .nav-card .icon-badge { width: 44px; height: 44px; margin-bottom: 14px; }
+  .nav-card .icon-badge img { width: 24px; height: 24px; }
+  .nav-card .nc-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; }
+  .nav-card .nc-sub { font-size: 0.8rem; color: var(--text-faint); margin-top: 4px; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; }
+  .progress-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
+
+  @media (max-width: 760px) {
+    .daily-activity-bar { grid-template-columns: 1fr; gap: 13px; }
+    .activity-counts { justify-content: flex-start; }
+    .progress-dashboard { grid-template-columns: 1fr; }
+    .metrics-stack { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: none; }
+    .metric-card { min-height: 118px; padding: 15px 12px; }
+    .metric-topline { align-items: flex-start; }
+    .metric-label { font-size: 0.68rem; line-height: 1.25; }
+    .metric-number { font-size: 1.65rem; }
+    .metric-sub { font-size: 0.67rem; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding-top: 25px; }
+    .nav-grid { grid-template-columns: 1fr; }
+    .metrics-stack { grid-template-columns: 1fr; }
+    .metric-card { min-height: 96px; }
+    .metric-card .metric-topline { align-items: center; }
+    .metric-number { font-size: 2rem; }
+    .steps-overview { padding: 20px; }
+  }
+</style>
+</head>
+<body class="dashboard-page">
+  <div class="container">
+    <header class="hero">
+      <span class="eyebrow" id="calendarEyebrow">Today</span>
+      <h1 id="calendarDate">Your calendar</h1>
+      <p class="motivation-quote" id="subGreeting"></p>
+    </header>
+
+    <section id="statsSection" hidden aria-labelledby="progressHeading">
+      <h2 class="section-label" id="progressHeading">Your progress</h2>
+      <div id="dailyActivityBar"></div>
+      <div class="progress-dashboard" id="progressDashboard"></div>
+    </section>
+
+    <h2 class="section-label" id="quickLabel">Quick actions</h2>
+    <div class="nav-grid" id="cardGrid"></div>
+
+    <div id="teacherStats" hidden style="margin-top:16px;"></div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "balance-app",
+  "version": "0.1.0",
+  "description": "Student wellness + credit economy prototype (Balance)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

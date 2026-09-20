@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Hub - Balance</title>
+<link rel="icon" type="image/png" href="assets/icons/balance-logo.png">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="homework.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous">
+<style>
+  body { padding: 100px 0 60px; }
+  .page-header { margin-bottom: 24px; }
+  .page-header h1 { font-size: 1.8rem; margin-top: 6px; }
+
+  .assignment-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .assignment-card:hover,
+  form.new-assignment:hover { border-color: var(--border); box-shadow: 0 0 0 2px rgba(186, 204, 131, .22); }
+  .assignment-card .a-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .assignment-card .a-meta { font-size: 0.82rem; color: var(--text-faint); margin: 6px 0 14px; }
+
+  form.new-assignment {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    margin-bottom: 28px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  form.new-assignment .field-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; align-items: end; }
+  @media (max-width: 620px) { form.new-assignment .field-row { grid-template-columns: 1fr; } }
+
+  .sub-row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.85rem; padding: 10px 0; border-top: 1px solid var(--border);
+  }
+  .sub-row select {
+    background: var(--surface-2); color: var(--text); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 6px 10px; font-size: 0.8rem;
+  }
+  .submission-form { display: grid; gap: 10px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .submission-form .form-label { color: var(--text-muted); font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .submission-form input[type="file"], .submission-form input[type="url"], .grade-form input { width: 100%; color: var(--text); background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 10px; font: inherit; font-size: .82rem; }
+  .submission-form .submit-status { min-height: 1.1em; margin: 0; color: var(--text-faint); font-size: .78rem; }
+  .submission-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .submission-links a { color: var(--blue); font-size: .82rem; font-weight: 700; }
+  .grade-result { margin-top: 10px; color: var(--gold); font-size: .84rem; font-weight: 700; }
+  .grade-form { display: flex; align-items: end; justify-content: flex-end; gap: 7px; min-width: 210px; }
+  .grade-form label { color: var(--text-muted); font-size: .7rem; font-weight: 700; text-transform: uppercase; }
+  .grade-form input { width: 68px; margin-left: 4px; }
+  .grade-form .btn { padding: 8px 12px; font-size: .75rem; }
+  @media (max-width: 620px) { .sub-row { align-items: flex-start; flex-direction: column; gap: 10px; } .grade-form { justify-content: flex-start; } }
+  .empty-msg { color: var(--text-faint); font-size: 0.9rem; }
+
+  .coach-card { margin-bottom: 28px; }
+  .coach-card h2 { font-size: 1.2rem; margin: 5px 0 6px; }
+  .coach-card p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin: 0 0 16px; }
+  .coach-question {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .coach-answer {
+    margin-top: 18px;
+    padding: 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .coach-answer h1, .coach-answer h2, .coach-answer h3 { font-family: var(--font-heading); color: var(--text); margin: 18px 0 8px; line-height: 1.25; }
+  .coach-answer h1 { font-size: 1.15rem; }
+  .coach-answer h2 { font-size: 1.02rem; }
+  .coach-answer h3 { font-size: .94rem; }
+  .coach-answer p { margin: 0 0 10px; }
+  .coach-answer ul, .coach-answer ol { margin: 0 0 12px; padding-left: 22px; }
+  .coach-answer li { margin: 4px 0; }
+  .coach-answer code { background: rgba(255,255,255,.08); border-radius: 4px; padding: 1px 4px; font-size: .85em; }
+  .coach-answer .math-display { overflow-x: auto; margin: 14px 0; padding: 8px 2px; text-align: center; }
+  .coach-status { min-height: 1.2em; margin-top: 12px !important; color: var(--text-faint) !important; }
+  .coach-card .btn-primary,
+  form.new-assignment .btn-primary,
+  .assignment-card .btn-primary { background: var(--blue); color: #fff; }
+  .coach-card .btn-primary:hover:not(:disabled),
+  form.new-assignment .btn-primary:hover:not(:disabled),
+  .assignment-card .btn-primary:hover:not(:disabled) { box-shadow: var(--shadow-glow-blue); }
+  .coach-card .input-field:focus,
+  form.new-assignment .input-field:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-dim); }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="page-header">
+      <span class="eyebrow">Homework Hub</span>
+      <h1><img class="page-title-icon education" src="assets/icons/homework.png" alt="">Assignments</h1>
+    </div>
+
+    <div id="teacherForm"></div>
+    <div id="coachPanel"></div>
+    <div id="assignmentList">Loading…</div>
+
+    <a href="dashboard.html" class="back-link" style="display:inline-block;margin-top:20px;color:var(--text-faint);text-decoration:none;font-size:0.85rem;">&larr; Back to dashboard</a>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
+  <script src="markdown.js"></script>
+  <script src="homework.js"></script>
+</body>
+</html>

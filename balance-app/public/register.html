@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký - Balance</title>
+    <link rel="icon" type="image/png" href="assets/icons/balance-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="brand-mark">
+            <img class="login-brand-logo" src="assets/icons/balance-logo.png" alt="">
+            BALANCE
+        </div>
+
+        <div class="login-header">
+            <h2>Tạo Tài Khoản Mới</h2>
+            <p>Tham gia ngay để bắt đầu theo dõi sức khỏe và tích điểm Streak!</p>
+        </div>
+
+        <form id="registerForm">
+            <div class="input-group">
+                <label for="regName">Họ và Tên</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-user"></i>
+                    <input type="text" id="regName" placeholder="Nguyễn Văn A" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="regEmail">Email Trường</label>
+                <div class="input-wrapper">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="email" id="regEmail" placeholder="ban@nguyensieuschool.edu.com" required>
+                </div>
+                <div id="rolePreview">
+                    Học sinh: @nguyensieuschool.edu.com &nbsp;•&nbsp; Giáo viên: @nguyensieuschool.com
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="regClass">Lớp</label>
+                <select id="regClass" class="select-field" required>
+                    <option value="" disabled selected>Đang tải danh sách lớp…</option>
+                </select>
+                <div style="font-size:12px;margin-top:6px;color:var(--text-faint);">
+                    Chọn lớp bạn đang học hoặc đang chủ nhiệm
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="regPassword">Mật Khẩu</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="regPassword" placeholder="••••••••" minlength="8" required>
+                </div>
+                <div style="font-size:12px;margin-top:6px;color:var(--text-faint);">
+                    Ít nhất 8 ký tự, gồm 1 chữ in hoa và 1 ký tự đặc biệt.
+                </div>
+            </div>
+
+            <p id="formError" class="form-error"></p>
+
+            <button type="submit" class="btn-login">Đăng Ký Tài Khoản</button>
+        </form>
+
+        <div class="register-link">
+            Đã có tài khoản? <a href="index.html">Đăng nhập ngay</a>
+        </div>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+</html>

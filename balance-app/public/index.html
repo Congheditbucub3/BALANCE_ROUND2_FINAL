@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng Nhập - Balance</title>
+<link rel="icon" type="image/png" href="assets/icons/balance-logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="login-card">
+    <div class="brand-mark">
+        <img class="login-brand-logo" src="assets/icons/balance-logo.png" alt="">
+        BALANCE
+    </div>
+
+    <div class="login-header">
+        <h2>Chào Mừng Trở Lại</h2>
+        <p>Đăng nhập để tiếp tục chuỗi Streak và nhiệm vụ sức khỏe hôm nay.</p>
+    </div>
+
+    <form id="loginForm">
+        <div class="input-group">
+            <label for="email">Email</label>
+            <div class="input-wrapper">
+                <i class="fa-regular fa-envelope"></i>
+                <input type="email" id="email" placeholder="ban@nguyensieuschool.edu.com" required>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Mật Khẩu</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+        </div>
+
+        <div class="options">
+            <label class="remember-me">
+                <input type="checkbox"> Ghi nhớ đăng nhập
+            </label>
+            <a href="#" class="forgot-pass">Quên mật khẩu?</a>
+        </div>
+
+        <p id="formError" class="form-error"></p>
+
+        <button type="submit" class="btn-login">Đăng Nhập</button>
+    </form>
+
+    <div class="divider">
+        <span>Hoặc đăng nhập với</span>
+    </div>
+
+    <button type="button" class="btn-google" id="btnGoogle">
+        <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" width="18" alt="Google Logo">
+        Tài khoản Google Trường
+    </button>
+
+    <div class="register-link">
+        Bản demo này chỉ dùng hai tài khoản: giáo viên và học sinh.
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

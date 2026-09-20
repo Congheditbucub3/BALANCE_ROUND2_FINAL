@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop - Balance</title>
+<link rel="icon" type="image/png" href="assets/icons/balance-logo.png">
+<link rel="stylesheet" href="theme.css">
+<style>
+  body { padding: 100px 0 60px; }
+  .page-header { margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .page-header h1 { font-size: 1.8rem; margin-top: 6px; }
+
+  .item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin: 22px 0 32px;
+  }
+  .item-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 18px;
+    text-align: center;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .item-card:hover, .pizza-card:hover { border-color: var(--border); box-shadow: 0 0 0 2px rgba(186, 204, 131, .22); }
+  .item-card .item-icon { width: 42px; height: 42px; padding: 9px; border-radius: 12px; background: var(--gold); object-fit: contain; margin-bottom: 10px; }
+  .item-card .item-name { font-family: var(--font-heading); font-weight: 700; font-size: 1rem; }
+  .item-card .item-cost { color: var(--gold); font-size: 0.85rem; margin: 4px 0 14px; }
+  .item-card button { width: 100%; }
+  .item-card .btn-primary { background: var(--gold); color: #2D2D2D; }
+  .item-card .btn-primary:hover:not(:disabled) { box-shadow: 0 8px 24px rgba(233, 196, 33, .25); }
+
+  .pizza-card {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+    margin-top: 8px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .pizza-card .pizza-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;
+  }
+  .pizza-card .pizza-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
+  .pizza-card .item-icon { width: 28px; height: 28px; padding: 6px; margin: 0; flex: 0 0 auto; }
+  .pizza-card .pizza-numbers { font-size: 0.9rem; color: var(--text-muted); }
+  .pizza-track { height: 16px; }
+  .pizza-goal-msg { margin-top: 12px; font-size: 0.85rem; color: var(--text-muted); }
+  .pizza-track .progress-fill { background: var(--gold); }
+  .pizza-goal-msg.reached { color: var(--gold); font-weight: 700; }
+  #balanceLine { color: var(--gold) !important; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <span class="eyebrow">Shop</span>
+        <h1><img class="page-title-icon" src="assets/icons/shopping.png" alt="">Spend your credits</h1>
+      </div>
+    </div>
+    <p class="text-muted" id="balanceLine" style="font-size:0.9rem;"></p>
+
+    <div class="item-grid" id="itemGrid">Loading…</div>
+
+    <div class="pizza-card" id="pizzaCard">Loading class progress…</div>
+
+    <a href="dashboard.html" style="display:inline-block;margin-top:24px;color:var(--text-faint);text-decoration:none;font-size:0.85rem;">&larr; Back to dashboard</a>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>

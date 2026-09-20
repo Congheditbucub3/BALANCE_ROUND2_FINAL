@@ -1,0 +1,105 @@
+/* Homework AI attachment controls. These reuse the existing Balance theme
+   variables so this feature does not introduce a second visual style. */
+.coach-attachment {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+
+.coach-mode-field,
+.coach-attempt-field { margin-bottom: 12px; }
+
+.coach-field-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.coach-mode-guidance {
+  display: block;
+  margin-top: 7px;
+  color: var(--text-faint);
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.coach-attachment-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.coach-file-picker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.coach-file-picker:hover,
+.coach-file-picker:focus-within {
+  border-color: var(--blue);
+}
+
+.coach-file-picker input {
+  display: none;
+}
+
+.coach-file-help,
+.coach-file-name {
+  margin: 0;
+  color: var(--text-faint);
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.coach-file-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+
+.coach-file-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
+.coach-file-clear {
+  appearance: none;
+  border: 0;
+  padding: 3px 4px;
+  background: transparent;
+  color: var(--text-faint);
+  cursor: pointer;
+  font: inherit;
+  font-size: .8rem;
+}
+
+.coach-file-clear:hover,
+.coach-file-clear:focus-visible {
+  color: var(--text);
+}

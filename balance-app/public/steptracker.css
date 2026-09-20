@@ -1,0 +1,185 @@
+/* steptracker.css — page-specific styles; shared tokens come from theme.css */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 90px 20px 40px;
+}
+
+.container { text-align: center; max-width: 340px; }
+
+.container h1 {
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+}
+
+.container .eyebrow { display: block; margin-bottom: 6px; }
+
+/* --- The Progress Ring Styling --- */
+.progress-container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 28px auto;
+}
+
+svg {
+    /* Rotates the circle so it starts filling from the top */
+    transform: rotate(-90deg);
+}
+
+circle {
+    fill: transparent;
+    stroke-width: 15;
+    stroke-linecap: round;
+}
+
+.ring-background {
+    stroke: var(--surface-2);
+}
+
+.ring-fill {
+    stroke: var(--lime);
+    stroke-dasharray: 691; /* The total circumference of the circle */
+    stroke-dashoffset: 691; /* Pushes the color off-screen to start at 0% */
+    transition: stroke-dashoffset 0.3s ease; /* This creates the smooth CSS animation */
+}
+
+/* --- Text and Buttons --- */
+.step-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+}
+
+#stepCount {
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--lime);
+    line-height: 1;
+}
+
+.label {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+#startBtn {
+    background: var(--lime);
+    color: var(--lime-ink);
+    border: none;
+    padding: 16px 40px;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+    width: 100%;
+}
+
+#startBtn:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow-lime); }
+#startBtn:active { transform: scale(0.97); }
+
+/* JS adds this class when tracking starts */
+#startBtn.is-tracking {
+    background: var(--red);
+    color: #fff;
+    box-shadow: none;
+}
+
+#statusMsg {
+    margin-top: 18px;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+#creditMsg {
+    margin-top: 10px;
+    color: var(--gold);
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-height: 1.2em;
+}
+
+#pendingMsg {
+    margin-top: 6px;
+    color: #e0a030;
+    font-size: 0.78rem;
+    min-height: 1.1em;
+}
+
+#demoBtn {
+    margin-top: 18px;
+    width: 100%;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+#demoBtn:hover { border-color: var(--border); color: var(--text); }
+
+.exercise-panel {
+    width: 100%;
+    text-align: left;
+    margin-top: 20px;
+    padding: 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+.exercise-panel:hover { border-color: var(--border); box-shadow: 0 0 0 2px rgba(186, 204, 131, .22); }
+.exercise-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.exercise-heading h2 { margin: 4px 0 0; font-size: 1rem; }
+.exercise-copy { margin: 10px 0 14px; color: var(--text-muted); font-size: .8rem; line-height: 1.45; }
+.optional-plan { margin: 0 0 14px; padding: 10px 11px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-2); color: var(--text-muted); font-size: .75rem; line-height: 1.45; }
+.exercise-missions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0 0 8px; }
+.mission-card { appearance: none; display: grid; gap: 3px; text-align: left; min-width: 0; padding: 11px; background: var(--surface-2); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; font: inherit; transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+.mission-card:hover, .mission-card.is-active { border-color: var(--border); box-shadow: 0 0 0 2px rgba(186, 204, 131, .2); transform: translateY(-1px); }
+.mission-card.is-complete { background: var(--gold-dim); }
+.mission-card:disabled { cursor: not-allowed; opacity: .5; transform: none; box-shadow: none; }
+.mission-name { font-family: var(--font-heading); font-size: .88rem; font-weight: 700; }
+.mission-reward { color: var(--gold); font-size: .76rem; font-weight: 800; }
+.mission-progress { color: var(--text-faint); font-size: .7rem; }
+.mission-note { margin: 0 0 14px; color: var(--text-faint); font-size: .72rem; line-height: 1.4; }
+.exercise-label { display: block; color: var(--text-muted); font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+.exercise-select { width: 100%; background: var(--surface-2); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 11px 13px; font-family: var(--font-body); font-size: .88rem; }
+.exercise-select:focus { outline: none; border-color: var(--lime); box-shadow: 0 0 0 3px var(--lime-dim); }
+.exercise-actions { display: flex; gap: 8px; margin-top: 12px; }
+#startExerciseCamera, #stopExerciseCamera { border: 0; border-radius: var(--radius-pill); padding: 10px 14px; font-family: var(--font-body); font-weight: 700; font-size: .78rem; cursor: pointer; }
+#startExerciseCamera { background: var(--lime); color: var(--lime-ink); }
+#stopExerciseCamera { background: var(--red-dim); color: var(--red); }
+#startExerciseCamera:disabled { opacity: .5; cursor: not-allowed; }
+.exercise-reps { display: flex; flex-direction: column; align-items: center; padding: 16px 0 9px; }
+#exerciseCount { font-family: var(--font-heading); color: var(--lime); font-size: 2.4rem; font-weight: 800; line-height: 1; }
+#exerciseCountLabel { color: var(--text-muted); font-size: .75rem; margin-top: 4px; }
+.exercise-video-wrap { overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg); aspect-ratio: 4 / 3; margin-top: 8px; }
+#exerciseVideo { display: block; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+#exerciseStatus { min-height: 1.2em; margin: 12px 0 0; color: var(--text-faint); font-size: .78rem; }
+
+@media (max-width: 360px) { .exercise-missions { grid-template-columns: 1fr; } }
+
+.back-link {
+    display: inline-block;
+    margin-top: 26px;
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+.back-link:hover { color: var(--text-muted); }

@@ -1,0 +1,163 @@
+/* timer.css — page-specific styles; shared tokens come from theme.css */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 90px 20px 40px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 40px 36px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    max-width: 420px;
+    width: 100%;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+.container:hover, .focus-camera:hover { border-color: var(--border); box-shadow: 0 0 0 2px rgba(186, 204, 131, .22); }
+
+.title {
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+}
+
+hr.divider {
+    width: 60px;
+    height: 4px;
+    border: none;
+    background: var(--blue);
+    border-radius: var(--radius-pill);
+    margin: 4px 0 22px;
+}
+
+.timer {
+    font-size: 2rem;
+    font-weight: 800;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 26px;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.time-label {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.colon {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-faint);
+    padding-top: 4px;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+button.btn {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    padding: 13px 20px;
+    border-radius: var(--radius-pill);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    flex: 1;
+}
+button.btn:hover { transform: translateY(-2px); }
+button.btn:active { transform: scale(0.96); }
+
+#start { background: var(--blue); color: #fff; }
+#start:hover { box-shadow: var(--shadow-glow-blue); }
+
+#pause { background: var(--surface-2); color: var(--text); border: 1.5px solid var(--border); }
+#pause:hover { border-color: var(--border-strong); }
+
+#reset { background: var(--red-dim); color: var(--red); }
+
+#hours, #minutes, #seconds {
+    width: 76px;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 8px 4px;
+    background: var(--surface-2);
+    -moz-appearance: textfield;
+}
+#hours::-webkit-outer-spin-button, #hours::-webkit-inner-spin-button,
+#minutes::-webkit-outer-spin-button, #minutes::-webkit-inner-spin-button,
+#seconds::-webkit-outer-spin-button, #seconds::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#hours:focus, #minutes:focus, #seconds:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--blue-dim);
+}
+
+#timerCreditMsg {
+    margin-top: 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gold);
+    min-height: 1.2em;
+}
+
+.focus-camera {
+    width: 100%;
+    text-align: left;
+    margin-top: 18px;
+    padding: 17px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+}
+.focus-camera-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.focus-camera h2 { font-size: 1rem; margin-top: 3px; }
+.focus-camera-copy { margin: 9px 0 14px; color: var(--text-muted); font-size: .8rem; line-height: 1.45; }
+.focus-camera-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.focus-camera-actions .btn { flex: 0 0 auto; padding: 10px 15px; font-size: .8rem; }
+.focus-video-wrap { margin-top: 14px; overflow: hidden; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg); aspect-ratio: 16 / 9; }
+#focusCameraVideo { display: block; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+.focus-camera-status { margin: 12px 0 0; min-height: 1.2em; color: var(--text-faint); font-size: .78rem; }
+
+.back-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+.back-link:hover { color: var(--text-muted); }

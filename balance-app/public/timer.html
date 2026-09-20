@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Timer - Balance</title>
+    <link rel="icon" type="image/png" href="assets/icons/balance-logo.png">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="timer.css">
+</head>
+<body>
+    <div class="container">
+        <span class="eyebrow">Focus Timer</span>
+        <h1 class="title">Balance Timer</h1>
+        <hr class="divider">
+
+        <div class="timer">
+            <div class="time-unit">
+                <input type="number" id="hours" placeholder="00" min="0" max="99" inputmode="numeric" data-max="99">
+                <span class="time-label">Hours</span>
+            </div>
+            <span class="colon">:</span>
+            <div class="time-unit">
+                <input type="number" id="minutes" placeholder="00" min="0" max="59" inputmode="numeric" data-max="59">
+                <span class="time-label">Minutes</span>
+            </div>
+            <span class="colon">:</span>
+            <div class="time-unit">
+                <input type="number" id="seconds" placeholder="00" min="0" max="59" inputmode="numeric" data-max="59">
+                <span class="time-label">Seconds</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="start" class="btn">Start</button>
+            <button id="pause" class="btn">Pause</button>
+            <button id="reset" class="btn">Reset</button>
+        </div>
+
+        <p id="timerCreditMsg"></p>
+
+        <section class="focus-camera" aria-labelledby="focusCameraTitle">
+            <div class="focus-camera-heading">
+                <div>
+                    <span class="eyebrow">Optional</span>
+                    <h2 id="focusCameraTitle">Focus Camera</h2>
+                </div>
+                <span class="pill pill-neutral" id="focusCameraPill">off</span>
+            </div>
+            <p class="focus-camera-copy">Keep the camera on during a session for a friendly reminder if you leave. Video stays on this device.</p>
+            <div class="focus-camera-actions">
+                <button id="enableFocusCamera" class="btn btn-ghost" type="button">Enable camera</button>
+                <button id="disableFocusCamera" class="btn btn-danger" type="button" hidden>Turn off</button>
+            </div>
+            <div class="focus-video-wrap" id="focusVideoWrap" hidden>
+                <video id="focusCameraVideo" autoplay muted playsinline></video>
+            </div>
+            <p class="focus-camera-status" id="focusCameraStatus" aria-live="polite">Camera is off.</p>
+        </section>
+
+        <a href="dashboard.html" class="back-link">&larr; Back to dashboard</a>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="vision-utils.js"></script>
+    <script src="timer.js"></script>
+</body>
+</html>

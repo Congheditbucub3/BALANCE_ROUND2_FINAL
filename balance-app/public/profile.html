@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - Balance</title>
+<link rel="icon" type="image/png" href="assets/icons/balance-logo.png">
+<link rel="stylesheet" href="theme.css">
+<style>
+  body { padding: 100px 0 60px; }
+  .page-header { margin-bottom: 24px; }
+  .page-header h1 { font-size: 1.8rem; margin-top: 6px; }
+
+  .profile-hero {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--lime-dim); color: var(--lime);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading); font-weight: 800; font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+  .profile-hero h2 { font-size: 1.4rem; }
+  .profile-hero .sub { color: var(--text-muted); font-size: 0.88rem; margin-top: 2px; }
+
+  .lifetime-card {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .lifetime-card .big-number {
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .lifetime-card .big-label {
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .purchase-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-top: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .purchase-row:first-child { border-top: none; }
+  .purchase-row .p-date { color: var(--text-faint); font-size: 0.78rem; }
+
+  .section-label {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 26px 0 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="page-header">
+      <span class="eyebrow">Account</span>
+      <h1>Profile</h1>
+    </div>
+
+    <div id="profileContent">Loading…</div>
+
+    <a href="dashboard.html" style="display:inline-block;margin-top:24px;color:var(--text-faint);text-decoration:none;font-size:0.85rem;">&larr; Back to dashboard</a>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>

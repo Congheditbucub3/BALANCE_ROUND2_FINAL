@@ -1,0 +1,23 @@
+# render.yaml — Render "Blueprint". If you connect this repo on Render and
+# it detects this file, it can set up the service automatically instead of
+# you filling in the dashboard by hand.
+#
+# IMPORTANT — read before deploying:
+# Free web services on Render do NOT get a persistent disk. This app's
+# database (data/balance.db) is a plain file, so on the free plan it gets
+# wiped every time the service redeploys or restarts. That's fine for a
+# demo you just want a shareable link for. If you want real, lasting data,
+# switch `plan: free` to `plan: starter` below and uncomment the `disk`
+# block — see the README's "Deploying" section for the full tradeoff.
+
+services:
+  - type: web
+    name: balance-app
+    runtime: node
+    plan: free
+    buildCommand: "echo 'no build step needed — zero npm dependencies'"
+    startCommand: "node server.js"
+    # disk:
+    #   name: balance-data
+    #   mountPath: /opt/render/project/src/data
+    #   sizeGB: 1
